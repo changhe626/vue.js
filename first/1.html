@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../vue.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div id="app">
+        {{message}}
+    </div>
+
+    <hr>
+    <div id="app2">
+  <span v-bind:title="message">
+    鼠标悬停几秒钟查看此处动态绑定的提示信息！
+  </span>
+    </div>
+<hr>
+    <div id="app3">
+        <p v-if="seen">现在你看到我了</p>
+    </div>
+<hr>
+    <div id="app4">
+        <p v-if="seen">你又看不到我了</p>
+    </div>
+<hr>
+<div id="app5">
+    <ol>
+        <li v-for="todo in tools"> {{todo.message}} </li>
+    </ol>
+</div>
+<hr>
+
+
+
+
+</body>
+</html>
+
+<script>
+
+    var app=new Vue({
+        el:"#app",
+        data:{
+            message:"zhoajun ,i miss you "
+        },  //1.这里加个, 继续下去
+        el:"#app2",
+        data: {
+            message: '页面加载于 ' + new Date().toLocaleString()+"for 昭君"
+        },
+        el:"#app3",
+        data:{
+            seen:true
+        },
+        el:"#app4",
+        data:{seen:false},
+        el:"#app5",
+        data:{
+            tools:
+                [
+                    {message:"昭君1"},   //错误的,不匹配的就显示不出来了
+                    {message:"王"},
+                    {message:"哈哈哈"}
+                ]
+            }
+    })
+
+    //2.下面这种方式也是可以的
+//    var app2=new Vue({
+//  el:"#app2",
+//    data: {
+//        message: '页面加载于 ' + new Date().toLocaleString()+"for 昭君"
+//    }
+//    })
+
+
+
+</script>

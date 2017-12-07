@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app6">
+    <p>{{message}}</p>
+    <button v-on:click="reverseMessage">逆转消息的</button>
+
+</div>
+
+</body>
+</html>
+
+<script>
+    var app6 = new Vue({
+        el: "#app6",
+        data: {message: "hello zhaojun"},
+        method: {
+            reverseMessage: function () {
+                this.message = this.message.split('').reverse().join('')
+            }
+        }
+
+    })
+
+</script>
