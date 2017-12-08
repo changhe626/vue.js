@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../vue.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app1">
+
+        {{message}}
+    </div>
+    <hr/>
+
+<div id="app2" v-once>
+    {{message}}<br/>
+ //不在跟随改变而改变的
+    <input   v-model="message"  >
+
+</div>
+
+<hr/>
+    //为了输出真正的 HTML，你需要使用 v-html 指令：
+    <p>Using mustaches: {{ rawHtml }}</p>
+    <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+
+
+<div id="app3">
+    原来的是:{{message}}
+    反转后是:{{reversedMessage}}
+</div>
+<hr/>
+<div id="app4">
+    原字符串:{{message}}
+<br/> 这里就需要使用()了...,不然无法显示的<br/>
+    转后的字符串:{{message2()}}
+</div>
+<hr/>
+<div id="app5">
+   这是一个时间的显示,每次都要进行计算:   {{now}}
+</div>
+<hr/>
+
+<div id="app6">
+    <a v-bind:href="url">zhaojun</a>
+</div>
+<hr/>
+
+<div id="app7">
+    {{message1 | message2}}
+</div>
+
+<hr/>
+<div id="app8">
+    <p v-if="seen">
+        知天意,逆天难
+    </p>
+    <div v-else="seen">
+        这是一个else 的,可以和上面的if是用的不同的标签
+    </div>
+
+    <template v-if="ok">
+        惟贤惟德,能服与人
+    </template>
+</div>
+<hr/>
+
+
+<div id="app9">
+    //v-else 、v-else-if 必须跟在 v-if 或者 v-else-if之后。
+    <div v-if="type=='A'">
+        这是A
+    </div>
+    <div v-else-if="type=='B'">
+        this is the plan B
+    </div>
+    <div v-else-if="type=='C'">
+        this is the  C
+    </div>
+    <p v-else>
+        this is the else
+    </p>
+</div>
+<hr/>
+
+<div id="app10">
+   每次刷新都是一个新的值<br/>
+    {{num}}
+</div>
+
+
+
+</body>
+</html>
+    <script>
+        new Vue({
+            el:"#app10",
+            data:{num:Math.random()}
+        })
+
+        new Vue({
+            el:"#app9",
+            data:{type:"DD"}
+        })
+
+
+        new Vue({
+            el:"#app8",
+            data:{
+                seen:false,
+                ok:true
+            }
+        })
+
+
+        var data={message:"zhaojun"};
+
+        new Vue({
+            el:"#app1",
+            data:data,
+            //created 钩子可以用来在一个实例被创建之后执行代码：
+            //钩子的 this 指向调用它的 Vue 实例。
+            created:function () {
+                //alert('a is: ' + this.a)
+            }
+        })
+
+        //通过使用 v-once 指令，你也能执行一次性地插值，当数据改变时，插值处的内容不会更新。但请留心这会影响到该节点上所有的数据绑定：
+       // <span v-once>这个将不会改变: {{ msg }}</span>
+        new Vue({
+            el:"#app2",
+            data:{
+                message:"初始值"
+            }
+        })
+
+        new Vue({
+            el:"#app3",
+            data:{
+                message:"zhaojun"
+            },
+            computed:{
+                reversedMessage: function () {
+                return this.message.split('').reverse().join('')
+                }  
+            }
+        })
+
+        new Vue({
+            el:"#app4",
+            data:{message:"zhaojun222"},
+            methods:{
+                message2: function () {
+                    return this.message.split('').reverse().join('')
+                }
+            }
+        })
+
+        new Vue({
+            el:"#app5",
+            computed:{
+                now:function () {
+                    return Date.now()
+                }
+            }
+
+        })
+
+        new Vue({
+            el:"#app6",
+            data:{url:"http://www.baidu.com"}
+        })
+
+        new Vue({
+            el:"#app7",
+            data:{
+                message1:"zhaojun23"
+            },
+            filters:{
+                message2: function (value) {
+                    if(!value) return ''
+                    value=value.toString()
+                    return value.charAt(0).toUpperCase() + value.slice(1)
+                }
+            }
+        })
+
+
+
+
+
+
+
+
+    </script>

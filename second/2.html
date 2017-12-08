@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../vue.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app1">
+    //这里的site是起的一个别名,//这里的.name是内容的一个相当于属性的东西,
+    在li面的东西都会跟随着循环的.没有这个.name就取不到值了.
+    <ol>
+        <li v-for="site in sites">
+            {{site.name}}
+        </li>
+    </ol>
+</div>
+<hr/>
+<div id="app2">
+    <template v-for="site in sites">
+        <p>{{site}}</p>
+        <p>zhaojun ,直接整体全部的取出,显示</p>
+    </template>
+</div>
+<hr/>
+
+<div id="app3">
+    v-for 可以通过一个对象的属性来迭代数据：
+    <ul>
+        <li v-for="fild in object">
+            {{fild}}
+        </li>
+    </ul>
+    <br/>
+    <div v-for="(key,value) in object">
+        {{key}}--{{value}}
+        <br/>
+    </div>
+    <br/>
+    第一个是value 第二个是name  第三个是index.上面只是变量的接收....同上
+    <div v-for="(index,key,value) in object">
+        {{index}}--{{key}}--{{value}}
+    </div>
+
+    进行数字的迭代遍历
+    <div v-for="n in 10">
+        <span>{{n}}</span>
+    </div>
+</div>
+
+</body>
+</html>
+<script>
+    new Vue({
+        el:"#app3",
+        data:{
+            object:{
+                name:"zhaojun",
+                age:18,
+                gender:"girl"
+            }
+        }
+    })
+
+    new Vue({
+        el:"#app2",
+        data:{
+            sites:[{"1":"1"},{2:"2"},{3:"3"},{name:"zhaojun"}]   //这里面一定是key,value形式的
+        }
+    })
+
+    new Vue({
+        el:"#app1",
+        data:{
+            sites:[{name:"zhaojun"},{name:"i"},{name:"miss"},{name:"very much"}]
+        }
+    })
+
+</script>
