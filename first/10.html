@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../vue.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app1">
+        <input v-model="message" placeholder="edit me">
+        <p>Message is: {{ message }}</p>
+    </div>
+
+<div id="app2">
+    <span>Multiline message is:</span>
+    <p style="white-space: pre-line;">{{ message }}</p>
+    <br>
+    <textarea v-model="message" placeholder="add multiple lines"></textarea>
+</div>
+    <hr/>
+<div id="app3">
+    <input type="checkbox" id="checkbox" v-model="checked">
+    checked的值是:<label for="checkbox">{{ checked }}</label>
+</div>
+    <hr/>
+    <div id='app4'>
+        <input type="checkbox" id="jack" value="Jack2" v-model="checkedNames">
+        <label for="jack">Jack</label>
+        <input type="checkbox" id="john" value="John2" v-model="checkedNames">
+        <label for="john">John</label>
+        <input type="checkbox" id="mike" value="Mike2" v-model="checkedNames">
+        <label for="mike">Mike</label>
+        <br>
+        <span>Checked names: {{ checkedNames }}</span>
+    </div>
+    <hr/>
+<div id="app5">
+    <input type="radio" id="one" value="One" v-model="picked">
+    <label for="one">One</label>
+    <br>
+    <input type="radio" id="two" value="Two" v-model="picked">
+    <label for="two">Two</label>
+    <br>
+    <span>Picked: {{ picked }}</span>
+</div>
+    <hr/>
+<div id="app6">
+    <select v-model="selected">
+        <option disabled value="">请选择</option>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+    </select>
+    <span>Selected: {{ selected }}</span>
+</div>
+<hr/>
+<div id="app7">
+    <select v-model="selected" multiple style="width: 50px;">
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+    </select>
+    <br>
+    <span>Selected: {{ selected }}</span>
+</div>
+<hr/>
+    <div id="app8">
+    <select v-model="selected">
+        <option v-for="option in options" v-bind:value="option.value">
+            {{ option.text }}
+        </option>
+    </select>
+    <span>Selected: {{ selected }}</span>
+    </div>
+
+<hr/>
+<div id="app9">
+    <!-- 当选中时，`picked` 为字符串 "a" -->
+    <input type="radio" v-model="picked" value="a">
+
+    <!-- `toggle` 为 true 或 false -->
+    <input type="checkbox" v-model="toggle">
+
+    <!-- 当选中时，`selected` 为字符串 "abc" -->
+    <select v-model="selected">
+        <option value="abc">ABC</option>
+    </select>
+</div>
+<hr/>
+
+<div id="app10">
+    <input
+            type="checkbox"
+            v-model="toggle"
+            v-bind:true-value="a"
+            v-bind:false-value="b"
+    >
+</div>
+
+
+</body>
+
+
+<script>
+    new Vue({
+        el:"#app10",
+        data:{toggle:'a'}
+
+        // 当选中时
+        //vm.toggle === vm.a
+        // 当没有选中时
+        //vm.toggle === vm.b
+    })
+
+    new Vue({
+        el:"#app9",
+        data:{
+            picked:true,
+            toggle:"checked",
+            selected:"abc"
+        }
+    })
+
+    new Vue({
+        el:"#app8",
+        data:{
+            selected:'zk2',   //默认的选中项目,以value值设置
+            options:
+                [{text:"zhaojun1",value:"zk1"},{text:"zhaojun2",value:"zk2"},{text:"zhaojun13",value:"zk13"}]
+        }
+    })
+
+
+    //多选列表 (绑定到一个数组)：
+    new Vue({
+        el:"#app7",
+        data:{
+            selected:[]
+        }
+    })
+    new Vue({
+        el:"#app6",
+        data:{
+            selected:''
+        }
+    })
+    new Vue({
+        el:"#app5",
+        data:{
+            picked:''   //获取已经点击的值.
+        }
+    })
+
+    new Vue({
+        el:"#app4",
+        data:{
+            checkedNames:[]   //获取的是input中value
+        }
+    })
+
+    new Vue({
+        el:"#app3",
+        data:{
+            checked:true
+        }
+    })
+    new Vue({
+        el:"#app2",
+        data:{
+            message:""
+        }
+    })
+
+    new Vue({
+        el:"#app1",
+        data:{
+            message:"zhaojun"   //这个时候的placeholder 中的值就不会再显示了,直接显示zhaojun
+        }
+    })
+
+</script>

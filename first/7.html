@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../vue.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app1">
+    <div>
+        <h1 v-if="ok">Yes</h1>
+        <h1 v-else>No</h1>
+    </div>
+    <div>
+        <!-- 此时可以把一个 <template> 元素当做不可见的包裹元素，并在上面使用 v-if。最终的渲染结果将不包含 <template> 元素。-->
+        <template v-if="ok2">
+            <h1>Title</h1>
+            <p>Paragraph 1</p>
+            <p>Paragraph 2</p>
+        </template>
+        <span v-else="ok2">这是ok2的else</span>
+    </div>
+</div>
+<hr/>
+
+<div id="app2">
+    <template v-if="loginType=='email'">
+        <label>Email</label>
+        <input placeholder="输入Eamil">
+    </template>
+    <template  v-else-if="loginType=='userName'">
+        <label>userName</label>
+        <input placeholder="输入username">
+    </template>
+    <button v-on:click="tochange(loginType)">改变登录方式</button>
+</div>
+<hr/>
+
+<div id="app3">
+    <ul id="example-1">
+        <li v-for="item in items">
+            {{ item.message }}
+        </li>
+    </ul>
+
+    <ul id="example-2">
+        <li v-for="(item, index) in items">
+            {{ parentMessage }} - {{ index }} - {{ item.message }}
+        </li>
+    </ul>
+
+
+    <div v-for="item in items" :key="item.id">
+        <!-- 内容 -->
+        {{item.id}}
+    </div>
+</div>
+<hr/>
+<div id="app4">
+
+    <ul id="v-for-object" >
+        <li v-for="value in object">
+            {{ value }}
+        </li>
+    </ul>
+
+    <div v-for="(value, key) in object">
+        {{ key }}: {{ value }}
+    </div>
+
+    <div v-for="(value, key, index) in object">
+        {{ index }}. {{ key }}: {{ value }}
+    </div>
+</div>
+<hr/>
+<div id="app5">
+    <div v-for="item in object">
+        {{item}}
+    </div>
+    <button v-on:click="add">增加个</button>
+</div>
+
+</body>
+</html>
+<script>
+    var vue=new Vue({
+        el:"#app5",
+        data:{
+            object:{
+                name:"zhaojun",
+                age:16
+            }
+        },
+        methods:{
+            add:function () {
+                this.$set(this.object, 'age22', 27)
+                //Vue.set(vm.object, 'age2', 27)  //添加一个新的 age 属性到嵌套的 userProfile 对象：
+
+                //有时你可能需要为已有对象赋予多个新属性，比如使用 Object.assign() 或 _.extend()。
+                //在这种情况下，你应该用两个对象的属性创建一个新的对象。所以，如果你想添加新的响应式属性，不要像这样：
+                Object.assign(this.object, {
+                    age3: 29,
+                    favoriteColor: 'Vue Green'
+                })
+
+                this.object = Object.assign({}, this.object, {
+                    age: 30,
+                    favoriteColor: 'Vue Green222'
+                })
+            }
+        }
+    })
+
+    new Vue({
+        el:"#app4",
+        data:{
+            object:{
+                name:"zhaojun",
+                age:16,
+                gender:"girl"
+            }
+        }
+    })
+
+    new Vue({
+        el:"#app3",
+        data:{
+            parentMessage:"这是父元素",
+            items:[
+                {message:"zhaojun1",id:1},{message:"zhaojun2",id:2},{message:"zhaojun3",id:3}
+            ]
+        }
+    })
+
+
+    new Vue({
+        el:"#app2",
+        data:{
+            loginType:"email"
+        },
+        methods:{
+            tochange:function (obj) {
+                console.log(obj)
+                if(obj=='userName'){
+                    this.loginType='email'
+                }else{
+                    this.loginType='userName'
+                }
+            }
+        }
+    })
+
+    new Vue({
+        el:"#app1",
+        data:{
+            ok:false,
+            ok2:false
+        }
+    })
+
+
+</script>
