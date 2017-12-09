@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../vue.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app1">
+    姓<input v-model="name1">
+    <br/>
+    名<input v-model="name2">
+    <br/>
+    名字是:<span>{{name1}}{{name2}}</span>
+</div>
+
+
+<div id="app2">
+    {{check}}
+    {{check}}
+    {{check}}
+    {{check}}
+    <input type="checkbox" v-model="check">
+</div>
+
+
+</body>
+</html>
+<script>
+
+    new Vue({
+        el:"#app1",
+        data:{
+            name1:"",
+            name2:""
+        }
+    })
+
+    new Vue({
+        el:"#app2",
+        data:{
+            check:true
+        }
+
+    })
+
+
+</script>

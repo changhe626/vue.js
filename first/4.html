@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../vue.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+    <h2 v-on:click="f">{{title}}</h2>
+              <!-- v-on可以简写为@   -->
+            输入任务<input  @keyup.enter="add" v-model="text">
+    <ul v-for="todo in todos">
+        <li>
+            {{todo.text}}<input type="checkbox" v-model="todo.competed">
+            <button  v-on:click="todelete(todo)">删除1</button>
+            <button  v-on:click="todelete2(todo.text)">删除2</button>
+        </li>
+    </ul>
+    </div>
+</body>
+</html>
+
+<script>
+    var tools=[{text:"吃饭",competed:true},
+        {text:"睡觉",competed:false},
+        {text:"打豆豆",competed:true}
+    ]
+
+    new Vue({
+        el:"#app",
+        data:{
+            title:"昭君的时钟任务列表",
+            todos:tools,
+            text:""
+        },
+        methods:{
+            f:function () {
+                alert("hello function");
+            },
+            add:function () {
+                //alert(this.text)
+                if(this.text.trim().length==0){ return }
+                this.todos.push({
+                    text:this.text,
+                    competed:false
+                })
+                this.text=''
+            },
+            todelete:function (todo) {
+                console.log(todo)
+                console.log(todo.text)
+                var index
+                for(var i=0;i<this.todos.length;i++){
+                    if(this.todos[i]==todo){
+                        index=i
+                    }
+                }
+                this.todos.splice(index,1)
+            },
+            todelete2:function (text){
+                var _that=this
+                var todoIndex
+               this.todos.find(
+                   function (todo,index) {
+                       if(todo.text==text){
+                           console.log(index)
+                           //this.todos.splice(index,1)   //删除数组中内容,下标,几个
+                           todoIndex=index
+                       }
+                   })
+                   this.todos.splice(todoIndex,1)
+            }
+        }
+    })
+
+
+
+</script>
