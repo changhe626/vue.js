@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../vue.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app1">
+<div v-bind:class="{ active: isActive }">11</div>
+
+<div class="static"
+     v-bind:class="{ active: isActive, 'text-danger': hasError }">22
+</div>
+</div>
+
+<hr/>
+<div id="app2">
+    <div>
+        <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">昭君出去逛街了,我在学习</div>
+    </div>
+    <div>
+        <div v-bind:style="styleObject">整个style的样式的绑定,调整.</div>
+    </div>
+</div>
+
+</body>
+</html>
+<script>
+    new Vue({
+        el:"#app2",
+        data:{
+            activeColor:"red",
+            fontSize:23,
+            styleObject:{
+                color:"green",
+                fontSize:"20px"
+            }
+        }
+    })
+
+
+    new Vue({
+        el:"#app1",
+        data:{
+            isActive: true,
+            hasError: false,
+        }
+    })
+
+
+</script>

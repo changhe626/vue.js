@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../vue.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app1">
+        <div v-for="n in num2">
+            {{n}}
+        </div>
+    </div>
+<hr/>
+<div id="app2">
+    <span v-for="n in 10">{{ n }} </span>
+</div>
+
+<div id="app3">
+    <div id="todo-list-example">
+        <input
+                v-model="newTodoText"
+                v-on:keyup.enter="addNewTodo"
+                placeholder="Add a todo"
+        >
+        <ul>
+            <li
+                    is="todo-item"
+                    v-for="(todo, index) in todos"
+                    v-bind:key="todo.id"
+                    v-bind:title="todo.title"
+                    v-on:remove="todos.splice(index, 1)"
+            ></li>
+        </ul>
+    </div>
+
+</div>
+
+</body>
+</html>
+<script>
+    Vue.component('todo-item', {
+        template: '\
+    <li>\
+      {{ title }}\
+      <button v-on:click="$emit(\'remove\')">X</button>\
+    </li>\
+  ',
+        props: ['title']
+    })
+
+    new Vue({
+        el: '#todo-list-example',
+        data: {
+            newTodoText: '',
+            todos: [   //原始数据
+                {
+                    id: 1,
+                    title: 'Do the dishes',
+                },
+                {
+                    id: 2,
+                    title: 'Take out the trash',
+                },
+                {
+                    id: 3,
+                    title: 'Mow the lawn'
+                }
+            ],
+            nextTodoId: 4
+        },
+        methods: {
+            addNewTodo: function () {
+                this.todos.push({
+                    id: this.nextTodoId++,
+                    title: this.newTodoText
+                })
+                this.newTodoText = ''   //再次制空
+            }
+        }
+    })
+
+
+
+    //v-for 也可以取整数。在这种情况下，它将重复多次模板。
+    //v-for 的优先级比 v-if 更高，这意味着 v-if 将分别重复运行于每个 v-for 循环中
+    new Vue({
+        el:"#app2"
+    })
+
+    new Vue({
+        el:"#app1",
+        data:{
+            num:[1,2,4,5,7,2,6,2]
+        },
+        //有时，我们想要显示一个数组的过滤或排序副本，而不实际改变或重置原始数据。在这种情况下，可以创建返回过滤或排序数组的计算属性。
+        computed:{
+            num2:function () {
+                return this.num.filter(function (number){
+                    return number%2==0
+                })
+            }
+        }
+    })
+
+</script>

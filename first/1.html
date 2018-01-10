@@ -32,6 +32,11 @@
     </ol>
 </div>
 <hr>
+<div id="app6">
+    <span>{{name}}</span>
+    <br/>
+    <input type="text" v-model="name">
+</div>
 
 
 
@@ -64,7 +69,11 @@
                     {message:"王"},
                     {message:"哈哈哈"}
                 ]
-            }
+            },
+        el:"#app6",
+        data:{
+            name:"昭君,昭君"
+        }
     })
 
     //2.下面这种方式也是可以的
